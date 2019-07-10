@@ -108,6 +108,24 @@ var shows = [{
     name: "Eureka",
     themeSong: 
 },{
-    name: "Game of Thrones",  // 37 to here
+    name: "Game of Thrones",  
+    themeSong: 
+},{
+    name: "Star Trek: Enterprise",
+    themeSong: 
+},{
+    name: "Star Trek: Discovery",
+    themeSong: 
+},{
+    name: "Falling Skies",
+    themeSong: 
+},{
+    name: "Altered Carbon",
+    themeSong: 
+},{
+    name: "Colony", 
+    themeSong: 
+},{
+    name: "Black Mirror", // 43 to here
     themeSong: 
 }];
