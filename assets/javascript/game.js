@@ -1,131 +1,174 @@
 var initialImage = "assets/images/scifishows.jpg";
 var shows = [{
     name: "Dark Matter",
-    themeSong: "https://www.youtube.com/embed/HC5ZDtbKIeM?controls=0" 
+    themeSong: "assets/audio/darkMatter.mp3",
+    showImg: "assets/images/darkMatter.png",
 }, {
     name: "Orphan Black",
-    themeSong:
+    themeSong: "assets/audio/orphanBlack.mp3",
+    showImg: "assets/images/orphanBlack.jpg",
 }, {
     name: "Star Trek: Voyager",
-    themeSong:
+    themeSong: "assets/audio/starTrekVoyager.mp3",
+    showImg: "assets/images/starTrekVoyager.jpg",
 }, {
     name: "Torchwood",
-    themeSong:
+    themeSong: "assets/audio/torchwood.mp3",
+    showImg: "assets/images/torchwood.jpg",
 }, {
     name: "Farscape",
-    themeSong:
+    themeSong: "assets/audio/farscape.mp3",
+    showImg: "assets/images/farscape.jpg",
 }, {
     name: "Futurama",
-    themeSong:
+    themeSong: "assets/audio/futurama.mp3",
+    showImg: "assets/images/futurama.jpg",
 }, {
     name: "Bablyon 5",
-    themeSong:
+    themeSong: "assets/audio/bablyon5.mp3",
+    showImg: "assets/images/babylon5.jpg",
 }, {
     name: "The Expanse",
-    themeSong:
+    themeSong: "assets/audio/theExpanse.mp3",
+    showImg: "assets/images/theExpanse.jpg",
 }, {
     name: "Westworld",
-    themeSong:
+    themeSong: "assets/audio/westworld.mp3",
+    showImg: "assets/images/westworld.jpg",
 }, {
     name: "Stranger Things",
-    themeSong:
+    themeSong: "assets/audio/strangerThings.mp3",
+    showImg: "assets/images/strangerThings.jpg",
 }, {
     name: "Mystery Science Theater 3000",
-    themeSong:
+    themeSong: "assets/audio/mst3k.mp3",
+    showImg: "assets/images/mst3k.jpg",
 }, {
     name: "Fringe",
-    themeSong:
+    themeSong: "assets/audio/fringe.mp3",
+    showImg: "assets/images/fringe.jpg",
 }, {
     name: "Star Trek: Deep Space Nine",
-    themeSong:
+    themeSong: "assets/audio/starTrekDS9.mp3",
+    showImg: "assets/images/starTrekDS9.jpg",
 }, {
     name: "Stargate SG-1",
-    themeSong:
+    themeSong: "assets/audio/stargateSG1.mp3",
+    showImg: "assets/images/stargateSG1.jpg",
 }, {
     name: "Lost",
-    themeSong:
+    themeSong: "assets/audio/lost.mp3",
+    showImg: "assets/images/lost.jpg",
 }, {
     name: "Firefly",
-    themeSong:
+    themeSong: "assets/audio/firefly.mp3",
+    showImg: "assets/images/firefly.jpg",
 }, {
     name: "Star Trek",
-    themeSong:
+    themeSong: "assets/audio/starTrek.mp3",
+    showImg: "assets/images/starTrek.jpg",
 }, {
     name: "The Twilight Zone",
-    themeSong:
+    themeSong: "assets/audio/theTwilightZone.mp3",
+    showImg: "assets/images/theTwilightZone.jpg",
 }, {
     name: "Battlestar Galactica",
-    themeSong:
+    themeSong: "assets/audio/battlestarGalactica.mp3",
+    showImg: "assets/images/battlestarGalactica.jpg",
 }, {
     name: "Star Trek: The Next Generation",
-    themeSong:
+    themeSong: "assets/audio/starTrekTNG.mp3",
+    showImg: "assets/images/starTrekTNG.jpg",
 }, {
     name: "The X-Files",
-    themeSong:
+    themeSong: "assets/audio/theXFiles.mp3",
+    showImg: "assets/images/theXFiles.jpg",
 }, {
     name: "Doctor Who",
-    themeSong:
+    themeSong: "assets/audio/doctorWho.mp3",
+    showImg: "assets/images/doctorWho.jpg",
 }, {
     name: "Stargate Atlantis",
-    themeSong:
+    themeSong: "assets/audio/stargateAtlantis.mp3",
+    showImg: "assets/images/stargateAtlantis.jpg",
 }, {
     name: "Stargate Universe",
-    themeSong:
+    themeSong: "assets/audio/stargateUniverse.mp3",
+    showImg: "assets/images/stargateUniverse.jpg",
 }, {
     name: "Killjoys",
-    themeSong:
+    themeSong: "assets/audio/killjoys.mp3",
+    showImg: "assets/images/killjoys.jpg",
 }, {
     name: "Buffy the Vampire Slayer",
-    themeSong:
+    themeSong: "assets/audio/buffyTheVampireSlayer.mp3",
+    showImg: "assets/images/buffyTheVampireSlayer.jpg",
 }, {
     name: "Angel",
-    themeSong:
+    themeSong: "assets/audio/angel.mp3",
+    showImg: "assets/images/angel.jpg",
 }, {
     name: "Defiance",
-    themeSong:
+    themeSong: "assets/audio/defiance.mp3",
+    showImg: "assets/images/defiance.jpg",
 }, {
-    name: "Doll House",
-    themeSong:
+    name: "Dollhouse",
+    themeSong: "assets/audio/dollhouse.mp3",
+    showImg: "assets/images/dollhouse.jpg",
 }, {
     name: "The Outer Limits",
-    themeSong:
+    themeSong: "assets/audio/theOuterLimits.mp3",
+    showImg: "assets/images/theOuterLimits.jpg",
 }, {
     name: "Quantum Leap",
-    themeSong:
+    themeSong: "assets/audio/quantumLeap.mp3",
+    showImg: "assets/images/quantumLeap.jpg",
 }, {
     name: "Continuum",
-    themeSong:
+    themeSong: "assets/audio/continuum.mp3",
+    showImg: "assets/images/continuum.jpg",
 }, {
     name: "The Man in the High Castle",
-    themeSong:
+    themeSong: "assets/audio/theManInTheHighCastle.mp3",
+    showImg: "assets/images/theManInTheHighCastle.jpg",
 },{
     name: "The Orville",
-    themeSong: 
+    themeSong:  "assets/audio/theOrville.mp3",
+    showImg: "assets/images/theOrville.jpg",
 },{
     name: "Warehouse 13",
-    themeSong: 
+    themeSong:  "assets/audio/warehouse13.mp3",
+    showImg: "assets/images/warehouse13.jpg",
 },{
     name: "Eureka",
-    themeSong: 
+    themeSong:  "assets/audio/eureka.mp3",
+    showImg: "assets/images/eureka.jpg",
 },{
     name: "Game of Thrones",  
-    themeSong: 
+    themeSong:  "assets/audio/gameOfThrones.mp3",
+    showImg: "assets/images/gameOfThrones.jpg",
 },{
     name: "Star Trek: Enterprise",
-    themeSong: 
+    themeSong:  "assets/audio/starTrekEnterprise.mp3",
+    showImg: "assets/images/starTrekEnterprise.jpg",
 },{
     name: "Star Trek: Discovery",
-    themeSong: 
+    themeSong:  "assets/audio/starTrekDiscovery.mp3",
+    showImg: "assets/images/starTrekDiscovery.jpg",
 },{
     name: "Falling Skies",
-    themeSong: 
+    themeSong:  "assets/audio/fallingSkies.mp3",
+    showImg: "assets/images/fallingSKies.jpg",
 },{
     name: "Altered Carbon",
-    themeSong: 
+    themeSong:  "assets/audio/alteredCarbon.mp3",
+    showImg: "assets/images/alteredCarbon.jpg",
 },{
     name: "Colony", 
-    themeSong: 
+    themeSong:  "assets/audio/colony.mp3",
+    showImg: "assets/images/colony.jpg",
 },{
     name: "Black Mirror", // 43 to here
-    themeSong: 
+    themeSong:  "assets/audio/blackMirror.mp3",
+    showImg: "assets/images/blackMirror.jpg",
 }];
