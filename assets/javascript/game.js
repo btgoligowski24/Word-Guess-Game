@@ -199,50 +199,96 @@ var shows = [{
     themeSong: "assets/audio/andromeda.mp3",
     showImg: "assets/audio/andromeda.jpg",
 }];
-var newShow;
+var initialImage = "assets/images/scifishows.jpg";
+var newShow = Math.floor(Math.random() * shows.length);
 var showName;
+var wordArray = [];
+var showLength = 0;
 var showImg;
 var showAudio;
-var maxGuesses = 10;
-var guesses;
+var maxGuesses = 12;
+var incorrectGuesses = [];
 var wins = 0;
-var wordLines = "";
+// var maxPlays = 20; not using this now, going to let user go through all 50, but start at a random point
+var playIndex = 1;
+var startGame = window;
 
-function startGame() {
-    document.onkeyup = function (event) {
-        var x = document.getElementById("wins");
-        x.textContent = wins;
+startGame.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("anyKey").style.display = "none";
+        newShow();
     }
+})
+
+function updateScore() {
+    document.getElementById("wins") = wins;
+}
+
+function resetPage() {
+    location.reload();
 }
 
 function newShow() {
-    console.log(shows.length);
-    newShow = Math.floor(Math.random() * shows.length);
-    console.log(newShow);
-    console.log(shows[newShow].name);
-    showImg = shows[newShow].showImg;
-    console.log(showImg);
-    showAudio = shows[newShow].themeSong;
-    console.log(showAudio);
-    showName = shows[newShow].name;
-    console.log(showName);
-    for (var i = 0; i < showName.length; i++) {
-        if (showName.charAt(i) === " ") {
-            wordLines = wordLines + "&nbsp;" + "&nbsp;" + "&nbsp;" + "&nbsp;";
-        } else if (i === showName.length - 1) {
-            wordLines = wordLines + "_";
+    var x = document.getElementById("currentWord");
+    var y = document.getElementById("numGuesses");
+    var z = document.getElementById("lettersGuessed");
+    var a = document.getElementById("wins");
+    if (playIndex === shows.length) {
+        x.textContent = wins + " out of " + shows.length;
+    } else {
+        showImg = shows[newShow].showImg;
+        showAudio = shows[newShow].themeSong;
+        showName = shows[newShow].name;
+        console.log(showName);
+        incorrectGuesses = [];
+        for (var i = 0; i < showName.length; i++) {
+            if (showName.charAt(i) === " ") {
+                wordArray.push("&nbsp;");
+            } else {
+                wordArray.push("_");
+                showLength++;
+            }
+        }
+        console.log(showLength);
+        x.innerHTML = wordArray.join(" ");
+        y.textContent = maxGuesses;
+        z.textContent = incorrectGuesses;
+        a.textContent = wins;
+        if (newShow === shows.length - 1) {
+            newShow = 0;
+            playIndex++;
         } else {
-            wordLines = wordLines + "_" + "&nbsp;" + "&nbsp;";
+            newShow++;
+            playIndex++;
         }
     }
-    console.log(wordLines);
-    var x = document.getElementById("currentWord");
-    x.innerHTML = wordLines;
-    var y = document.getElementById("numGuesses");
-    y.textContent = maxGuesses;
-    var z = document.getElementById("lettersGuessed");
-    z.textContent = "";
-    var a = document.getElementById("wins");
-    a.textContent = wins;
+    document.getElementById("showImg").setAttribute("src", initialImage);
+    // document.getElementsByTagName("audio").pause();
+    document.getElementById("showAudio").setAttribute("src", "");
 }
-newShow();
+
+document.onkeyup = function (event) {
+    for (var n = 0; n <= showName.length, n++) {
+        if (showName.toLowerCase().charAt(n) === event.key.toLowerCase()) {
+            if (showName.charAt(n) === event.key.toUpperCase()) {
+                wordArray[n] = event.key.toUpperCase();
+            } else {
+                wordArray[n] = event.key.toLowerCase();
+            }
+        }
+    }
+    if (!wordArray.includes("_")) {
+        document.getElementById("anyKey").style.display = "block";
+        document.getElementById("showImg").setAttribute("src", showImg);
+        document.getElementById("showAudio").setAttribute("src", showAudio);
+        startGame.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("anyKey").style.display = "none";
+                newShow();
+            }
+        })
+    }
+    
+}
