@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -36,16 +37,18 @@
     <iframe src="assets/audio/250-milliseconds-of-silence.mp3" allow="autoplay" id="initialAudio"
         style="display:none"></iframe>
 
-    <div class="row">
-        <div class="col-12 text-center">
-            Header Stuff Goes Here
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <img id="headerImg1" class="img-fluid" src="assets/images/hangman.jfif">
+            </div>
         </div>
     </div>
     <div class="container text-center">
         <div class="row">
             <div class="col-10 offset-1 col-md-4 offset-md-2 border border-secondary mr-md-0">
                 <img id="showImg" class="img-fluid mx-auto my-3" src="assets/images/scifishows.jpg">
-                <audio autoplay controls loop style="display:none">
+                <audio autoplay controls loop>
                     <source id="showAudio" src="" type="audio/mpeg">
                     Sorry your browswer doesn't support this audio
                 </audio>
