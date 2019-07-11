@@ -130,7 +130,7 @@ var shows = [{
 }, {
     name: "The Man in the High Castle",
     themeSong: "assets/audio/theManInTheHighCastle.mp3",
-    showImg: "assets/images/theManInTheHighCastle.jpg",
+    showImg: "assets/images/theManInTheHighCastle.jfif",
 },{
     name: "The Orville",
     themeSong:  "assets/audio/theOrville.mp3",
@@ -168,7 +168,35 @@ var shows = [{
     themeSong:  "assets/audio/colony.mp3",
     showImg: "assets/images/colony.jpg",
 },{
-    name: "Black Mirror", // 43 to here
+    name: "Black Mirror",
     themeSong:  "assets/audio/blackMirror.mp3",
     showImg: "assets/images/blackMirror.jpg",
+},{
+    name: "Caprica", 
+    themeSong:  "assets/audio/caprica.mp3",
+    showImg: "assets/audio/caprica.jpg",
+},{
+    name: "Sense8", 
+    themeSong:  "assets/audio/caprica.mp3",
+    showImg: "assets/audio/caprica.jpg",
+},{
+    name: "Rick and Morty", 
+    themeSong:  "assets/audio/rickAndMorty.mp3",
+    showImg: "assets/audio/rickAndMorty.jfif",
+},{
+    name: "The 100", 
+    themeSong: "assets/audio/the100.mp3",
+    showImg: "assets/audio/the100.jpg",
+},{
+    name: "Humans", 
+    themeSong: "assets/audio/humans.mp3",
+    showImg: "assets/audio/humans.jpg",
+},{
+    name: "Sanctuary", 
+    themeSong:  "assets/audio/sanctuary.mp3",
+    showImg: "assets/audio/sanctuary.jpg",
+},{
+    name: "Andromeda", // 50 to here
+    themeSong:  "assets/audio/andromeda.mp3",
+    showImg: "assets/audio/andromeda.jpg",
 }];
