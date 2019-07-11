@@ -1,4 +1,3 @@
-var initialImage = "assets/images/scifishows.jpg";
 var shows = [{
     name: "Dark Matter",
     themeSong: "assets/audio/darkMatter.mp3",
@@ -131,72 +130,119 @@ var shows = [{
     name: "The Man in the High Castle",
     themeSong: "assets/audio/theManInTheHighCastle.mp3",
     showImg: "assets/images/theManInTheHighCastle.jfif",
-},{
+}, {
     name: "The Orville",
-    themeSong:  "assets/audio/theOrville.mp3",
+    themeSong: "assets/audio/theOrville.mp3",
     showImg: "assets/images/theOrville.jpg",
-},{
+}, {
     name: "Warehouse 13",
-    themeSong:  "assets/audio/warehouse13.mp3",
+    themeSong: "assets/audio/warehouse13.mp3",
     showImg: "assets/images/warehouse13.jpg",
-},{
+}, {
     name: "Eureka",
-    themeSong:  "assets/audio/eureka.mp3",
+    themeSong: "assets/audio/eureka.mp3",
     showImg: "assets/images/eureka.jpg",
-},{
-    name: "Game of Thrones",  
-    themeSong:  "assets/audio/gameOfThrones.mp3",
+}, {
+    name: "Game of Thrones",
+    themeSong: "assets/audio/gameOfThrones.mp3",
     showImg: "assets/images/gameOfThrones.jpg",
-},{
+}, {
     name: "Star Trek: Enterprise",
-    themeSong:  "assets/audio/starTrekEnterprise.mp3",
+    themeSong: "assets/audio/starTrekEnterprise.mp3",
     showImg: "assets/images/starTrekEnterprise.jpg",
-},{
+}, {
     name: "Star Trek: Discovery",
-    themeSong:  "assets/audio/starTrekDiscovery.mp3",
+    themeSong: "assets/audio/starTrekDiscovery.mp3",
     showImg: "assets/images/starTrekDiscovery.jpg",
-},{
+}, {
     name: "Falling Skies",
-    themeSong:  "assets/audio/fallingSkies.mp3",
+    themeSong: "assets/audio/fallingSkies.mp3",
     showImg: "assets/images/fallingSKies.jpg",
-},{
+}, {
     name: "Altered Carbon",
-    themeSong:  "assets/audio/alteredCarbon.mp3",
+    themeSong: "assets/audio/alteredCarbon.mp3",
     showImg: "assets/images/alteredCarbon.jpg",
-},{
-    name: "Colony", 
-    themeSong:  "assets/audio/colony.mp3",
+}, {
+    name: "Colony",
+    themeSong: "assets/audio/colony.mp3",
     showImg: "assets/images/colony.jpg",
-},{
+}, {
     name: "Black Mirror",
-    themeSong:  "assets/audio/blackMirror.mp3",
+    themeSong: "assets/audio/blackMirror.mp3",
     showImg: "assets/images/blackMirror.jpg",
-},{
-    name: "Caprica", 
-    themeSong:  "assets/audio/caprica.mp3",
+}, {
+    name: "Caprica",
+    themeSong: "assets/audio/caprica.mp3",
     showImg: "assets/audio/caprica.jpg",
-},{
-    name: "Sense8", 
-    themeSong:  "assets/audio/caprica.mp3",
+}, {
+    name: "Sense8",
+    themeSong: "assets/audio/caprica.mp3",
     showImg: "assets/audio/caprica.jpg",
-},{
-    name: "Rick and Morty", 
-    themeSong:  "assets/audio/rickAndMorty.mp3",
+}, {
+    name: "Rick and Morty",
+    themeSong: "assets/audio/rickAndMorty.mp3",
     showImg: "assets/audio/rickAndMorty.jfif",
-},{
-    name: "The 100", 
+}, {
+    name: "The 100",
     themeSong: "assets/audio/the100.mp3",
     showImg: "assets/audio/the100.jpg",
-},{
-    name: "Humans", 
+}, {
+    name: "Humans",
     themeSong: "assets/audio/humans.mp3",
     showImg: "assets/audio/humans.jpg",
-},{
-    name: "Sanctuary", 
-    themeSong:  "assets/audio/sanctuary.mp3",
+}, {
+    name: "Sanctuary",
+    themeSong: "assets/audio/sanctuary.mp3",
     showImg: "assets/audio/sanctuary.jpg",
-},{
+}, {
     name: "Andromeda", // 50 to here
-    themeSong:  "assets/audio/andromeda.mp3",
+    themeSong: "assets/audio/andromeda.mp3",
     showImg: "assets/audio/andromeda.jpg",
 }];
+var newShow;
+var showName;
+var showImg;
+var showAudio;
+var maxGuesses = 10;
+var guesses;
+var wins = 0;
+var wordLines = "";
+
+function startGame() {
+    document.onkeyup = function (event) {
+        var x = document.getElementById("wins");
+        x.textContent = wins;
+    }
+}
+
+function newShow() {
+    console.log(shows.length);
+    newShow = Math.floor(Math.random() * shows.length);
+    console.log(newShow);
+    console.log(shows[newShow].name);
+    showImg = shows[newShow].showImg;
+    console.log(showImg);
+    showAudio = shows[newShow].themeSong;
+    console.log(showAudio);
+    showName = shows[newShow].name;
+    console.log(showName);
+    for (var i = 0; i < showName.length; i++) {
+        if (showName.charAt(i) === " ") {
+            wordLines = wordLines + "&nbsp;" + "&nbsp;" + "&nbsp;" + "&nbsp;";
+        } else if (i === showName.length - 1) {
+            wordLines = wordLines + "_";
+        } else {
+            wordLines = wordLines + "_" + "&nbsp;" + "&nbsp;";
+        }
+    }
+    console.log(wordLines);
+    var x = document.getElementById("currentWord");
+    x.innerHTML = wordLines;
+    var y = document.getElementById("numGuesses");
+    y.textContent = maxGuesses;
+    var z = document.getElementById("lettersGuessed");
+    z.textContent = "";
+    var a = document.getElementById("wins");
+    a.textContent = wins;
+}
+newShow();
