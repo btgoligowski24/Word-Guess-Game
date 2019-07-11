@@ -203,7 +203,7 @@ var initialImage = "assets/images/scifishows.jpg";
 var newShow = Math.floor(Math.random() * shows.length);
 var showName;
 var wordArray = [];
-var showLength = 0;
+// var showLength = 0; not using currently, wasn't sure if needed number total that didn't include spaces
 var showImg;
 var showAudio;
 var maxGuesses = 12;
@@ -212,6 +212,8 @@ var wins = 0;
 // var maxPlays = 20; not using this now, going to let user go through all 50, but start at a random point
 var playIndex = 1;
 var startGame = window;
+var tempArray1 = [];
+var tempArray2 = [];
 
 startGame.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
@@ -220,6 +222,10 @@ startGame.addEventListener("keyup", function (event) {
         newShow();
     }
 })
+
+function letterGuessed() {
+    alert("You already guessed that letter, try again!")
+}
 
 function updateScore() {
     document.getElementById("wins") = wins;
@@ -234,8 +240,11 @@ function newShow() {
     var y = document.getElementById("numGuesses");
     var z = document.getElementById("lettersGuessed");
     var a = document.getElementById("wins");
+    var b = document.getElementById("anyKey");
     if (playIndex === shows.length) {
-        x.textContent = wins + " out of " + shows.length;
+        b.style.display = "block";
+        b.textContent = "GAME OVER!";
+        x.textContent = "You got " + wins + " out of " + shows.length;
     } else {
         showImg = shows[newShow].showImg;
         showAudio = shows[newShow].themeSong;
@@ -247,10 +256,10 @@ function newShow() {
                 wordArray.push("&nbsp;");
             } else {
                 wordArray.push("_");
-                showLength++;
+                // showLength++;
             }
         }
-        console.log(showLength);
+        // console.log(showLength);
         x.innerHTML = wordArray.join(" ");
         y.textContent = maxGuesses;
         z.textContent = incorrectGuesses;
@@ -262,26 +271,47 @@ function newShow() {
             newShow++;
             playIndex++;
         }
+        tempArray1 = [];
+        for (var j = 0; j < wordArray.length; j++) {
+            tempArray1.push(wordArray[j].toLowerCase());
+        }
+        tempArray2 = [];
+        for (var k = 0; k < wordArray.length; k++) {
+            tempArray2.push(incorrectGuesses[k].toLowerCase());
+        }
     }
-    document.getElementById("showImg").setAttribute("src", initialImage);
+    document.getElementById("showImg").src = initialImage;
     // document.getElementsByTagName("audio").pause();
-    document.getElementById("showAudio").setAttribute("src", "");
+    document.getElementById("showAudio").src = "";
 }
 
 document.onkeyup = function (event) {
-    for (var n = 0; n <= showName.length, n++) {
-        if (showName.toLowerCase().charAt(n) === event.key.toLowerCase()) {
-            if (showName.charAt(n) === event.key.toUpperCase()) {
-                wordArray[n] = event.key.toUpperCase();
+    for (var n = 0; n <= showName.length; n++) {
+        if (tempArray1[n].includes(event.key.toLowerCase())) {
+            letterGuessed();
+        } else if (tempArray2[n].toLowerCase().includes(event.key)) {
+            letterGuessed();
+        } else {
+            if (showName.toLowerCase().charAt(n) === event.key.toLowerCase()) {
+                if (showName.charAt(n) === event.key.toUpperCase()) {
+                    wordArray[n] = event.key.toUpperCase();
+                } else {
+                    wordArray[n] = event.key.toLowerCase();
+                }
+                //*******write to page with update here for current word
             } else {
-                wordArray[n] = event.key.toLowerCase();
+                //*******push incorrect letter guessed to incorrect guesses array
+                //*******write to page with update here for incorrect guesses
+
             }
         }
     }
+
     if (!wordArray.includes("_")) {
         document.getElementById("anyKey").style.display = "block";
-        document.getElementById("showImg").setAttribute("src", showImg);
-        document.getElementById("showAudio").setAttribute("src", showAudio);
+        document.getElementById("showImg").src = showImg;
+        document.getElementById("showAudio").src = showAudio;
+        //******** may need to PLAY audio here if autoplay doesn't work
         startGame.addEventListener("keyup", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
@@ -290,5 +320,4 @@ document.onkeyup = function (event) {
             }
         })
     }
-    
 }
