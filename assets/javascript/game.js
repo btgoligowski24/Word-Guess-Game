@@ -206,26 +206,32 @@ var wordArray = [];
 // var showLength = 0; not using currently, wasn't sure if needed number total that didn't include spaces
 var showImg;
 var showAudio;
-var remGuesses;
-var incorrectGuesses = [];
+var maxGuesses = 12;
+var incorrectLetters = [];
 var wins = 0;
 // var maxPlays = 20; not using this now, going to let user go through all 50, but start at winsElem random point
 var playIndex = 1;
-var tempArray1 = [];
-var tempArray2 = [];
+var lowerCaseWordArray = [];
 var curWordElem = document.getElementById("currentWord");
 var numGuessesElem = document.getElementById("numGuesses");
 var letterGuessedElem = document.getElementById("lettersGuessed");
 var winsElem = document.getElementById("wins");
 var anyKeyElem = document.getElementById("anyKey");
+var imgElem = document.getElementById("showImg");
+var audioElem = document.getElementById("showAudio");
+
+// var hintElem = document.getElementById("hint"); might leave this up all the time
 
 window.addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
+    // we are technically in a 'true' state for checkForWin because there are no "_" in the empty wordArray var so it should resolve to true and work
+    if (event.key === "Enter" && checkForGameFinish()) {
+        resetPage();
+        return;
+    }
+    if (event.key === "Enter" && (checkForLoss() || checkForWin())) {
         event.preventDefault();
         newShow();
-        document.getElementById("anyKey").style.display = "none";
-        
-        this.console.log("Show Name: ", showName);
+        anyKeyElem.style.display = "none";
     }
 })
 
@@ -234,26 +240,54 @@ function letterGuessed() {
 }
 
 function updateScore() {
-    document.getElementById("wins") = wins;
+    winsElem.textContent = wins;
+}
+
+function checkForGameFinish() {
+    return playIndex === shows.length;
 }
 
 function resetPage() {
     location.reload();
 }
 
+function checkForWin() {
+    return !wordArray.includes("_");
+}
+
+function checkForLoss() {
+    return maxGuesses === incorrectLetters.length;
+}
+
+function userWon() {
+    wins++;
+    anyKeyElem.textContent = "Congratulations on getting the word right! Press \"Enter\" to get your next word."
+    anyKeyElem.style.display = "block";
+    imgElem.setAttribute("src", showImg);
+    audioElem.setAttribute("src", showAudio);
+    //******** may need to PLAY audio here if autoplay doesn't work
+}
+
+function userLoss() {
+    anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next word."
+    anyKeyElem.style.display = "block";
+    curWordElem.textContent = showName;
+    imgElem.setAttribute("src", showImg);
+    audioElem.setAttribute("src", showAudio);
+}
+
 function newShow() {
-    if (playIndex === shows.length) {
+    if (checkForGameFinish()) {
         anyKeyElem.style.display = "block";
-        anyKeyElem.textContent = "GAME OVER!";
-        curWordElem.textContent = "You got " + wins + " out of " + shows.length;
+        anyKeyElem.textContent = "GAME OVER! Press \"Enter\" to start again";
+        winsElem.textContent = "You got " + wins + " out of " + shows.length;
         //**********need to add page reload function here on delay
     } else {
-        remGuesses = 12;
         showImg = shows[newShowIndex].showImg;
         showAudio = shows[newShowIndex].themeSong;
         showName = shows[newShowIndex].name;
         console.log("Name: ", showName);
-        incorrectGuesses = [];
+        incorrectLetters = [];
         for (var i = 0; i < showName.length; i++) {
             if (showName.charAt(i) === " ") {
                 wordArray.push("&nbsp;");
@@ -263,9 +297,10 @@ function newShow() {
             }
         }
         // console.log(showLength);
+        curWordElem.textContent = "";
         curWordElem.innerHTML = wordArray.join(" ");
-        numGuessesElem.textContent = remGuesses;
-        letterGuessedElem.textContent = incorrectGuesses;
+        numGuessesElem.textContent = maxGuesses;
+        letterGuessedElem.textContent = incorrectLetters;
         winsElem.textContent = wins;
         if (newShowIndex === shows.length - 1) {
             newShowIndex = 0;
@@ -274,61 +309,57 @@ function newShow() {
             newShowIndex++;
             playIndex++;
         }
-        tempArray1 = [];
+        lowerCaseWordArray = [];
         for (var j = 0; j < wordArray.length; j++) {
-            tempArray1.push(wordArray[j].toLowerCase());
-        }
-        tempArray2 = [];
-        for (var k = 0; k < wordArray.length; k++) {
-            tempArray2.push(incorrectGuesses[k].toLowerCase());
+            lowerCaseWordArray.push(wordArray[j].toLowerCase());
         }
     }
-    document.getElementById("showImg").setAttribute("src", initialImage);
+    imgElem.setAttribute("src", initialImage);
+
     // document.getElementsByTagName("audio").pause();
-    document.getElementById("showAudio").setAttribute("src", "");
+    audioElem.setAttribute("src", "");
 }
 
 document.onkeyup = function (event) {
-    console.log("Key Pressed: ", event.key);
-    if (event.key !== "Shift" || event.key !== "Enter") {
-        for (var n = 0; n <= showName.length; n++) {
-            if (tempArray1[n].includes(event.key.toLowerCase())) {
-                letterGuessed();
-            } else if (tempArray2[n].toLowerCase().includes(event.key.toLowerCase())) {
-                letterGuessed();
-            } else {
-                if (showName.toLowerCase().charAt(n) === event.key.toLowerCase()) {
-                    if (showName.charAt(n) === event.key.toUpperCase()) {
-                        wordArray[n] = event.key.toUpperCase();
-                    } else {
-                        wordArray[n] = event.key.toLowerCase();
-                    }
-                    //*******write to page with update here for current word
-                    curWordElem.textContent = wordArray;
-                } else {
-                    remGuesses--;
-                    //*******push incorrect letter guessed to incorrect guesses array
-                    incorrectGuesses = incorrectGuesses.push(event.key.toLowerCase());
-                    //*******write to page with update here for incorrect guesses
-                    numGuessesElem.textContent = remGuesses;
-                    letterGuessedElem.textContent = incorrectGuesses;
+    var lower = event.key.toLowerCase();
+    var upper = event.key.toUpperCase();
+    console.log("lower: ", lower);
+    console.log("upper: ", upper);
+    console.log("Key Pressed1: ", event.key);
+    console.log("Word Array: ", wordArray);
+    console.log("lower Word Array: ", lowerCaseWordArray);
 
+    if (event.key !== "Shift" && event.key !== "Enter") {
+        console.log(showName)
+        console.log("Key Pressed2: ", event.key);
+        if (lowerCaseWordArray.includes(lower)) {
+            letterGuessed();
+        } else if (incorrectLetters.includes(lower)) {
+            letterGuessed();
+        } else {
+
+            // iterating through all characters in show name to see where matches, if any, exist
+            for (var n = 0; n <= showName.length; n++) {
+
+                // new sucessful match to character in normalized word
+                if (showName.toLowerCase().charAt(n) === lower) {
+                    wordArray[n] = showName.charAt(n);
                 }
             }
+            
+            
+            // NEED TO FIGURE OUT PROPER DECREMENTING AND/OR LETTERS GUESSED ARRAY
+            
+            curWordElem.innerHTML = wordArray.join(" ");
+            incorrectLetters.push(lower);
+            letterGuessedElem.textContent = incorrectLetters.join(", ");
+            numGuessesElem.textContent = maxGuesses - incorrectLetters.length;
         }
 
-        if (!wordArray.includes("_")) {
-            document.getElementById("anyKey").style.display = "block";
-            document.getElementById("showImg").setAttribute("src", showImg);
-            document.getElementById("showAudio").setAttribute("src", showAudio);
-            //******** may need to PLAY audio here if autoplay doesn't work
-            window.addEventListener("keyup", function (event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    document.getElementById("anyKey").style.display = "none";
-                    newShow();
-                }
-            })
+        if (checkForWin()) {
+            userWon();
+        } else if (checkForLoss()) {
+            userLoss();
         }
     }
 }
