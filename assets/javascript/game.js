@@ -200,7 +200,7 @@ var shows = [{
     showImg: "assets/audio/andromeda.jpg",
 }];
 var initialImage = "assets/images/scifishows.jpg";
-var newShow = Math.floor(Math.random() * shows.length);
+var newShowIndex = Math.floor(Math.random() * shows.length);
 var showName;
 var wordArray = [];
 // var showLength = 0; not using currently, wasn't sure if needed number total that didn't include spaces
@@ -209,24 +209,23 @@ var showAudio;
 var remGuesses;
 var incorrectGuesses = [];
 var wins = 0;
-// var maxPlays = 20; not using this now, going to let user go through all 50, but start at a random point
+// var maxPlays = 20; not using this now, going to let user go through all 50, but start at winsElem random point
 var playIndex = 1;
-var startGame = window;
 var tempArray1 = [];
 var tempArray2 = [];
-var x = document.getElementById("currentWord");
-var y = document.getElementById("numGuesses");
-var z = document.getElementById("lettersGuessed");
-var a = document.getElementById("wins");
-var b = document.getElementById("anyKey");
+var curWordElem = document.getElementById("currentWord");
+var numGuessesElem = document.getElementById("numGuesses");
+var letterGuessedElem = document.getElementById("lettersGuessed");
+var winsElem = document.getElementById("wins");
+var anyKeyElem = document.getElementById("anyKey");
 
-startGame.addEventListener("keyup", function (event) {
+window.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
         newShow();
         document.getElementById("anyKey").style.display = "none";
         
-        this.console.log(showName);
+        this.console.log("Show Name: ", showName);
     }
 })
 
@@ -244,16 +243,16 @@ function resetPage() {
 
 function newShow() {
     if (playIndex === shows.length) {
-        b.style.display = "block";
-        b.textContent = "GAME OVER!";
-        x.textContent = "You got " + wins + " out of " + shows.length;
+        anyKeyElem.style.display = "block";
+        anyKeyElem.textContent = "GAME OVER!";
+        curWordElem.textContent = "You got " + wins + " out of " + shows.length;
         //**********need to add page reload function here on delay
     } else {
         remGuesses = 12;
-        showImg = shows[newShow].showImg;
-        showAudio = shows[newShow].themeSong;
-        showName = shows[newShow].name;
-        console.log(showName);
+        showImg = shows[newShowIndex].showImg;
+        showAudio = shows[newShowIndex].themeSong;
+        showName = shows[newShowIndex].name;
+        console.log("Name: ", showName);
         incorrectGuesses = [];
         for (var i = 0; i < showName.length; i++) {
             if (showName.charAt(i) === " ") {
@@ -264,15 +263,15 @@ function newShow() {
             }
         }
         // console.log(showLength);
-        x.innerHTML = wordArray.join(" ");
-        y.textContent = remGuesses;
-        z.textContent = incorrectGuesses;
-        a.textContent = wins;
-        if (newShow === shows.length - 1) {
-            newShow = 0;
+        curWordElem.innerHTML = wordArray.join(" ");
+        numGuessesElem.textContent = remGuesses;
+        letterGuessedElem.textContent = incorrectGuesses;
+        winsElem.textContent = wins;
+        if (newShowIndex === shows.length - 1) {
+            newShowIndex = 0;
             playIndex++;
         } else {
-            newShow++;
+            newShowIndex++;
             playIndex++;
         }
         tempArray1 = [];
@@ -290,7 +289,7 @@ function newShow() {
 }
 
 document.onkeyup = function (event) {
-    console.log(event.key);
+    console.log("Key Pressed: ", event.key);
     if (event.key !== "Shift" || event.key !== "Enter") {
         for (var n = 0; n <= showName.length; n++) {
             if (tempArray1[n].includes(event.key.toLowerCase())) {
@@ -305,14 +304,14 @@ document.onkeyup = function (event) {
                         wordArray[n] = event.key.toLowerCase();
                     }
                     //*******write to page with update here for current word
-                    x.textContent = wordArray;
+                    curWordElem.textContent = wordArray;
                 } else {
                     remGuesses--;
                     //*******push incorrect letter guessed to incorrect guesses array
                     incorrectGuesses = incorrectGuesses.push(event.key.toLowerCase());
                     //*******write to page with update here for incorrect guesses
-                    y.textContent = remGuesses;
-                    z.textContent = incorrectGuesses;
+                    numGuessesElem.textContent = remGuesses;
+                    letterGuessedElem.textContent = incorrectGuesses;
 
                 }
             }
@@ -323,7 +322,7 @@ document.onkeyup = function (event) {
             document.getElementById("showImg").setAttribute("src", showImg);
             document.getElementById("showAudio").setAttribute("src", showAudio);
             //******** may need to PLAY audio here if autoplay doesn't work
-            startGame.addEventListener("keyup", function (event) {
+            window.addEventListener("keyup", function (event) {
                 if (event.key === "Enter") {
                     event.preventDefault();
                     document.getElementById("anyKey").style.display = "none";
