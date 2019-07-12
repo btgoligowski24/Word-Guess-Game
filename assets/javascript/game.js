@@ -206,7 +206,7 @@ var wordArray = [];
 // var showLength = 0; not using currently, wasn't sure if needed number total that didn't include spaces
 var showImg;
 var showAudio;
-var remGuesses = 12;
+var remGuesses;
 var incorrectGuesses = [];
 var wins = 0;
 // var maxPlays = 20; not using this now, going to let user go through all 50, but start at a random point
