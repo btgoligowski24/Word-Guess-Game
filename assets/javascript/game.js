@@ -293,6 +293,7 @@ function userWon() {
     wins++;
     imgElem.setAttribute("src", showImg);
     audioElem.setAttribute("src", showAudio);
+    curWordElem.textContent = showName;
     curWordElem.setAttribute("style", "color: green");
     audioElem.style.display = "block";
     if (checkForGameFinish()) {
