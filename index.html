@@ -32,9 +32,6 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <iframe src="assets/audio/250-milliseconds-of-silence.mp3" allow="autoplay" id="initialAudio"
-        style="display:none"></iframe>
-
     <div class="container">
         <div class="row">
             <div class="col-12 text-center mb-3">
@@ -46,28 +43,25 @@
         <div class="row">
             <div class="col-10 offset-1 col-md-4 offset-md-2 border border-secondary mr-md-0 p-3">
                 <img id="showImg" class="img-fluid rounded" src="assets/images/scifishows.jpg">
-                <audio autoplay controls loop>
-                    <source id="showAudio" src="" type="audio/mpeg">
-                    Sorry your browswer doesn't support this audio
-                </audio>
+                <audio id="showAudio" autoplay controls loop></audio>
             </div>
             <div class="col-10 offset-1 col-md-4 border border-secondary ml-md-0 p-3">
-                <h4 id="anyKey" class="mb-3">Press "Enter" to get started!</h4>
-                <p id="hint">Remember, some shows have special characters in their names!</p>
+                <h4 id="anyKey" class="mb-3 letterSpacing">Press "Enter" to get started!</h4>
+                <p id="hint" class="letterSpacing">Remember, some shows have special characters in their names!</p>
                 <div>
-                    <p>Wins:</p>
+                    <p class="font-weight-bold letterSpacing">Wins:</p>
                     <p id="wins"></p>
                 </div>
                 <div>
-                    <p>Current Word</p>
+                    <p id="wordLabel" class="font-weight-bold letterSpacing">Show to Guess</p>
                     <p id="currentWord" class="text-break"></p>
                 </div>
                 <div>
-                    <p>Incorrect Guesses Remaining:</p>
+                    <p class="font-weight-bold letterSpacing">Incorrect Guesses Remaining:</p>
                     <p id="numGuesses"></p>
                 </div>
                 <div>
-                    <p>Incorrect Letters Guessed:</p>
+                    <p class="font-weight-bold letterSpacing">Letters Already Guessed:</p>
                     <p id="lettersGuessed" class="text-break"></p>
                 </div>
             </div>

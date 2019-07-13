@@ -173,45 +173,44 @@ var shows = [{
 }, {
     name: "Caprica",
     themeSong: "assets/audio/caprica.mp3",
-    showImg: "assets/audio/caprica.jpg",
+    showImg: "assets/images/caprica.jpg",
 }, {
     name: "Sense8",
     themeSong: "assets/audio/caprica.mp3",
-    showImg: "assets/audio/caprica.jpg",
+    showImg: "assets/images/caprica.jpg",
 }, {
     name: "Rick and Morty",
     themeSong: "assets/audio/rickAndMorty.mp3",
-    showImg: "assets/audio/rickAndMorty.jfif",
+    showImg: "assets/images/rickAndMorty.jfif",
 }, {
     name: "The 100",
     themeSong: "assets/audio/the100.mp3",
-    showImg: "assets/audio/the100.jpg",
+    showImg: "assets/images/the100.jpg",
 }, {
     name: "Humans",
     themeSong: "assets/audio/humans.mp3",
-    showImg: "assets/audio/humans.jpg",
+    showImg: "assets/images/humans.jpg",
 }, {
     name: "Sanctuary",
     themeSong: "assets/audio/sanctuary.mp3",
-    showImg: "assets/audio/sanctuary.jpg",
+    showImg: "assets/images/sanctuary.jpg",
 }, {
     name: "Andromeda", // 50 to here
     themeSong: "assets/audio/andromeda.mp3",
-    showImg: "assets/audio/andromeda.jpg",
+    showImg: "assets/images/andromeda.jpg",
 }];
 var initialImage = "assets/images/scifishows.jpg";
 var newShowIndex = Math.floor(Math.random() * shows.length);
 var showName;
 var wordArray = [];
-// var showLength = 0; not using currently, wasn't sure if needed number total that didn't include spaces
 var showImg;
 var showAudio;
-var maxGuesses = 12;
-var incorrectLetters = [];
+var maxGuesses = 10;
+var letterGuesses = [];
 var wins = 0;
-// var maxPlays = 20; not using this now, going to let user go through all 50, but start at winsElem random point
-var playIndex = 1;
+var playIndex = 0;
 var lowerCaseWordArray = [];
+var wordLabel = document.getElementById("wordLabel");
 var curWordElem = document.getElementById("currentWord");
 var numGuessesElem = document.getElementById("numGuesses");
 var letterGuessedElem = document.getElementById("lettersGuessed");
@@ -219,8 +218,18 @@ var winsElem = document.getElementById("wins");
 var anyKeyElem = document.getElementById("anyKey");
 var imgElem = document.getElementById("showImg");
 var audioElem = document.getElementById("showAudio");
+var hint = document.getElementById("hint");
+var correctLetter;
+var incorrectGuessCount = 0;
+var availableChars = "abcdefghijklmnopqrstuvwxyz0123456789-:";
 
-// var hintElem = document.getElementById("hint"); might leave this up all the time
+// ***Not using the below because it's easier to just create an array of valid characters but the below is really cool to dynamically create a unique list***
+
+// var allShows = shows.map(function (show) {
+//     return show["name"].toLowerCase();
+// });
+// var availableChars = allShows.join("").split("");
+// var uniqueChars = [];
 
 window.addEventListener("keyup", function (event) {
     // we are technically in a 'true' state for checkForWin because there are no "_" in the empty wordArray var so it should resolve to true and work
@@ -231,9 +240,24 @@ window.addEventListener("keyup", function (event) {
     if (event.key === "Enter" && (checkForLoss() || checkForWin())) {
         event.preventDefault();
         newShow();
+        uniqueChars = removeDupes(availableChars);
         anyKeyElem.style.display = "none";
     }
 })
+
+// function to remove duplicate array indices; in this case, i'm using it to filter unique characters, but if it were show titles, it would find unique show titles. Not in use as it was easier to just create the string myself to test against.
+// function removeDupes(chars) {
+//     var tempObj = {};
+//     for (var i = 0; i < chars.length; i++) {
+//         tempObj[chars[i]] = true;
+//     }
+//     var tempArray = [];
+// 
+//     for (var j in tempObj) {
+//         tempArray.push(j);
+//     }
+//     return tempArray;
+// }
 
 function letterGuessed() {
     alert("You already guessed that letter, try again!")
@@ -247,8 +271,15 @@ function checkForGameFinish() {
     return playIndex === shows.length;
 }
 
+function gameFinished() {
+    anyKeyElem.style.display = "block";
+    anyKeyElem.textContent = "GAME OVER! Press \"Enter\" to start again";
+    winsElem.textContent = "You got " + wins + " out of " + shows.length;
+}
+
 function resetPage() {
     location.reload();
+    console.log(playIndex);
 }
 
 function checkForWin() {
@@ -256,110 +287,119 @@ function checkForWin() {
 }
 
 function checkForLoss() {
-    return maxGuesses === incorrectLetters.length;
+    return maxGuesses === incorrectGuessCount;
 }
 
 function userWon() {
     wins++;
-    anyKeyElem.textContent = "Congratulations on getting the word right! Press \"Enter\" to get your next word."
-    anyKeyElem.style.display = "block";
     imgElem.setAttribute("src", showImg);
     audioElem.setAttribute("src", showAudio);
-    //******** may need to PLAY audio here if autoplay doesn't work
+    curWordElem.setAttribute("style", "color: green");
+    audioElem.style.display = "block";
+    if (checkForGameFinish()) {
+        gameFinished();
+    } else {
+    anyKeyElem.textContent = "Congratulations on getting the show right! Press \"Enter\" to get your next word."
+    anyKeyElem.style.display = "block";
+    }
 }
 
 function userLoss() {
-    anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next word."
-    anyKeyElem.style.display = "block";
     curWordElem.textContent = showName;
     imgElem.setAttribute("src", showImg);
     audioElem.setAttribute("src", showAudio);
+    wordLabel.textContent = "The show was:"
+    curWordElem.setAttribute("style", "color: red");
+    audioElem.style.display = "block";
+    if (checkForGameFinish()) {
+        gameFinished();
+    } else {
+    anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next show."
+    anyKeyElem.style.display = "block";
+    }
 }
 
 function newShow() {
-    if (checkForGameFinish()) {
-        anyKeyElem.style.display = "block";
-        anyKeyElem.textContent = "GAME OVER! Press \"Enter\" to start again";
-        winsElem.textContent = "You got " + wins + " out of " + shows.length;
-        //**********need to add page reload function here on delay
-    } else {
-        showImg = shows[newShowIndex].showImg;
-        showAudio = shows[newShowIndex].themeSong;
-        showName = shows[newShowIndex].name;
-        console.log("Name: ", showName);
-        incorrectLetters = [];
-        for (var i = 0; i < showName.length; i++) {
-            if (showName.charAt(i) === " ") {
-                wordArray.push("&nbsp;");
-            } else {
-                wordArray.push("_");
-                // showLength++;
-            }
-        }
-        // console.log(showLength);
-        curWordElem.textContent = "";
-        curWordElem.innerHTML = wordArray.join(" ");
-        numGuessesElem.textContent = maxGuesses;
-        letterGuessedElem.textContent = incorrectLetters;
-        winsElem.textContent = wins;
-        if (newShowIndex === shows.length - 1) {
-            newShowIndex = 0;
-            playIndex++;
+    wordLabel.textContent = "Show to Guess"
+    curWordElem.removeAttribute("style");
+    hint.style.display = "none";
+    showImg = shows[newShowIndex].showImg;
+    showAudio = shows[newShowIndex].themeSong;
+    showName = shows[newShowIndex].name;
+    letterGuesses = [];
+    incorrectGuessCount = 0;
+    wordArray = [];
+
+    for (var i = 0; i < showName.length; i++) {
+        if (showName.charAt(i) === " ") {
+            wordArray.push("&nbsp;");
         } else {
-            newShowIndex++;
-            playIndex++;
-        }
-        lowerCaseWordArray = [];
-        for (var j = 0; j < wordArray.length; j++) {
-            lowerCaseWordArray.push(wordArray[j].toLowerCase());
+            wordArray.push("_");
         }
     }
+    curWordElem.innerHTML = wordArray.join(" ");
+    numGuessesElem.textContent = maxGuesses;
+    letterGuessedElem.textContent = letterGuesses;
+    winsElem.textContent = wins;
+    if (newShowIndex === shows.length - 1) {
+        newShowIndex = 0;
+        playIndex++;
+    } else {
+        newShowIndex++;
+        playIndex++;
+    }
+    lowerCaseWordArray = [];
+    for (var j = 0; j < wordArray.length; j++) {
+        lowerCaseWordArray.push(wordArray[j].toLowerCase());
+    }
     imgElem.setAttribute("src", initialImage);
-
-    // document.getElementsByTagName("audio").pause();
-    audioElem.setAttribute("src", "");
+    audioElem.pause();
+    audioElem.removeAttribute("src");
+    audioElem.style.display = "none";
+    console.log(playIndex)
 }
 
 document.onkeyup = function (event) {
     var lower = event.key.toLowerCase();
     var upper = event.key.toUpperCase();
-    console.log("lower: ", lower);
-    console.log("upper: ", upper);
-    console.log("Key Pressed1: ", event.key);
-    console.log("Word Array: ", wordArray);
-    console.log("lower Word Array: ", lowerCaseWordArray);
 
-    if (event.key !== "Shift" && event.key !== "Enter") {
-        console.log(showName)
-        console.log("Key Pressed2: ", event.key);
-        if (lowerCaseWordArray.includes(lower)) {
-            letterGuessed();
-        } else if (incorrectLetters.includes(lower)) {
-            letterGuessed();
-        } else {
+    if (checkForLoss() || checkForWin()) {} else {
+        if (availableChars.includes(lower)) {
+            if (lowerCaseWordArray.includes(lower)) {
+                letterGuessed();
+            } else if (letterGuesses.includes(lower)) {
+                letterGuessed();
+            } else {
+                correctLetter = false;
 
-            // iterating through all characters in show name to see where matches, if any, exist
-            for (var n = 0; n <= showName.length; n++) {
+                // iterating through all characters in show name to see where matches, if any, exist
+                for (var n = 0; n <= showName.length; n++) {
 
-                // new sucessful match to character in normalized word
-                if (showName.toLowerCase().charAt(n) === lower) {
-                    wordArray[n] = showName.charAt(n);
+                    // new sucessful match to character in normalized word
+                    if (showName.toLowerCase().charAt(n) === lower) {
+                        wordArray[n] = showName.charAt(n);
+                        correctLetter = true;
+                    }
                 }
-            }
-            
-            
-            // NEED TO FIGURE OUT PROPER DECREMENTING AND/OR LETTERS GUESSED ARRAY
-            
-            curWordElem.innerHTML = wordArray.join(" ");
-            incorrectLetters.push(lower);
-            letterGuessedElem.textContent = incorrectLetters.join(", ");
-            numGuessesElem.textContent = maxGuesses - incorrectLetters.length;
-        }
 
-        if (checkForWin()) {
-            userWon();
-        } else if (checkForLoss()) {
-            userLoss();
+                if (!correctLetter) {
+                    incorrectGuessCount++;
+                    numGuessesElem.textContent = maxGuesses - incorrectGuessCount;
+                } else {
+                    curWordElem.innerHTML = wordArray.join(" ");
+                }
+
+                letterGuesses.push(lower);
+                letterGuessedElem.textContent = letterGuesses.join(", ");
+            }
+            if (incorrectGuessCount === 8) {
+                hint.style.display = "block";
+            }
+            if (checkForWin()) {
+                userWon();
+            } else if (checkForLoss()) {
+                userLoss();
+            }
         }
     }
 }

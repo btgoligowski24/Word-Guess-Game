@@ -5,6 +5,7 @@ body {
 
 audio {
     display: none;
+    margin: 1em auto;
 }
 
 #anyKey, #hint {
@@ -12,5 +13,9 @@ audio {
 }
 
 #hint {
+    display: none;
     font-size: .8em;
+}
+.letterSpacing {
+    letter-spacing: .1em;
 }
