@@ -268,7 +268,7 @@ function updateScore() {
 }
 
 function checkForGameFinish() {
-    return playIndex === 3;
+    return playIndex === shows.length;
 }
 
 function gameFinished() {
@@ -311,7 +311,7 @@ function userLoss() {
     wordLabel.textContent = "The show was:"
     curWordElem.setAttribute("style", "color: red");
     audioElem.style.display = "block";
-    if (playIndex === 3) {
+    if (checkForGameFinish()) {
         gameFinished();
     } else {
     anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next show."
