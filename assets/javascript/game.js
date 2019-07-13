@@ -201,7 +201,7 @@ var shows = [{
 }];
 shows.sort(function(a, b){return 0.5 - Math.random()});
 var initialImage = "assets/images/scifishows.jpg";
-var newShowIndex = Math.floor(Math.random() * shows.length);
+var showIndex = 0;
 var showName;
 var wordArray = [];
 var showImg;
@@ -325,9 +325,9 @@ function newShow() {
     wordLabel.textContent = "Show to Guess"
     curWordElem.removeAttribute("style");
     hint.style.display = "none";
-    showImg = shows[newShowIndex].showImg;
-    showAudio = shows[newShowIndex].themeSong;
-    showName = shows[newShowIndex].name;
+    showImg = shows[showIndex].showImg;
+    showAudio = shows[showIndex].themeSong;
+    showName = shows[showIndex].name;
     letterGuesses = [];
     incorrectGuessCount = 0;
     wordArray = [];
@@ -343,13 +343,7 @@ function newShow() {
     numGuessesElem.textContent = maxGuesses;
     letterGuessedElem.textContent = letterGuesses;
     winsElem.textContent = wins;
-    if (newShowIndex === shows.length - 1) {
-        newShowIndex = 0;
-        playIndex++;
-    } else {
-        newShowIndex++;
-        playIndex++;
-    }
+    showIndex++;
     lowerCaseWordArray = [];
     for (var j = 0; j < wordArray.length; j++) {
         lowerCaseWordArray.push(wordArray[j].toLowerCase());
