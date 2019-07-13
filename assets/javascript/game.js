@@ -279,7 +279,6 @@ function gameFinished() {
 
 function resetPage() {
     location.reload();
-    console.log(playIndex);
 }
 
 function checkForWin() {
