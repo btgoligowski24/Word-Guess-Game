@@ -268,7 +268,7 @@ function updateScore() {
 }
 
 function checkForGameFinish() {
-    return playIndex === shows.length;
+    return playIndex === 3;
 }
 
 function gameFinished() {
@@ -277,8 +277,6 @@ function gameFinished() {
     winsElem.textContent = "You got " + wins + " out of " + shows.length;
 }
 
-
-// *** NEED TO MAKE THIS WORK PROPERLY
 function resetPage() {
     location.reload();
     console.log(playIndex);
@@ -313,7 +311,7 @@ function userLoss() {
     wordLabel.textContent = "The show was:"
     curWordElem.setAttribute("style", "color: red");
     audioElem.style.display = "block";
-    if (checkForGameFinish()) {
+    if (playIndex === 3) {
         gameFinished();
     } else {
     anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next show."
@@ -352,7 +350,7 @@ function newShow() {
     audioElem.pause();
     audioElem.removeAttribute("src");
     audioElem.style.display = "none";
-    console.log(playIndex)
+    playIndex++;
 }
 
 document.onkeyup = function (event) {
