@@ -157,7 +157,7 @@ var shows = [{
 }, {
     name: "Falling Skies",
     themeSong: "assets/audio/fallingSkies.mp3",
-    showImg: "assets/images/fallingSKies.jpg",
+    showImg: "assets/images/fallingSkies.jpg",
 }, {
     name: "Altered Carbon",
     themeSong: "assets/audio/alteredCarbon.mp3",
