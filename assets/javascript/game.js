@@ -199,6 +199,7 @@ var shows = [{
     themeSong: "assets/audio/andromeda.mp3",
     showImg: "assets/images/andromeda.jpg",
 }];
+shows.sort(function(a, b){return 0.5 - Math.random()});
 var initialImage = "assets/images/scifishows.jpg";
 var newShowIndex = Math.floor(Math.random() * shows.length);
 var showName;
@@ -240,7 +241,6 @@ window.addEventListener("keyup", function (event) {
     if (event.key === "Enter" && (checkForLoss() || checkForWin())) {
         event.preventDefault();
         newShow();
-        uniqueChars = removeDupes(availableChars);
         anyKeyElem.style.display = "none";
     }
 })
@@ -277,6 +277,8 @@ function gameFinished() {
     winsElem.textContent = "You got " + wins + " out of " + shows.length;
 }
 
+
+// *** NEED TO MAKE THIS WORK PROPERLY
 function resetPage() {
     location.reload();
     console.log(playIndex);
