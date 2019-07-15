@@ -22,5 +22,5 @@ audio {
 }
 
 input {
-    display: none;
+    z-index: 0;
 }
