@@ -21,6 +21,17 @@ audio {
     letter-spacing: .1em;
 }
 
-input {
-    z-index: 0;
+#mobileButtons {
+    display: none;
+}
+
+.button {
+    background-color: lightgray;
+    border: none;
+}
+
+@media screen and (max-width: 767px) {
+    #mobileButtons {
+        display: block;
+    }
 }

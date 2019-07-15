@@ -199,7 +199,9 @@ var shows = [{
     themeSong: "assets/audio/andromeda.mp3",
     showImg: "assets/images/andromeda.jpg",
 }];
-shows.sort(function(a, b){return 0.5 - Math.random()});
+shows.sort(function (a, b) {
+    return 0.5 - Math.random()
+});
 var initialImage = "assets/images/scifishows.jpg";
 var showIndex = 0;
 var showName;
@@ -223,14 +225,22 @@ var hint = document.getElementById("hint");
 var correctLetter;
 var incorrectGuessCount = 0;
 var availableChars = "abcdefghijklmnopqrstuvwxyz0123456789-:";
-
+var buttonArea = document.getElementById("mobileButtons");
+var buttons = document.getElementsByClassName("button");
 // ***Not using the below because it's easier to just create an array of valid characters but the below is really cool to dynamically create a unique list***
-
 // var allShows = shows.map(function (show) {
 //     return show["name"].toLowerCase();
 // });
 // var availableChars = allShows.join("").split("");
 // var uniqueChars = [];
+
+for (var i = 0; i < availableChars.length; i++) {
+    var addButton = document.createElement("button");
+    addButton.setAttribute("data-char", availableChars[i]);
+    addButton.setAttribute("class", "m-1 button");
+    addButton.textContent = addButton.getAttribute("data-char");
+    buttonArea.appendChild(addButton);
+}
 
 window.addEventListener("keyup", function (event) {
     // we are technically in a 'true' state for checkForWin because there are no "_" in the empty wordArray var so it should resolve to true and work
@@ -244,7 +254,6 @@ window.addEventListener("keyup", function (event) {
         anyKeyElem.style.display = "none";
     }
 })
-
 // function to remove duplicate array indices; in this case, i'm using it to filter unique characters, but if it were show titles, it would find unique show titles. Not in use as it was easier to just create the string myself to test against.
 // function removeDupes(chars) {
 //     var tempObj = {};
@@ -258,7 +267,6 @@ window.addEventListener("keyup", function (event) {
 //     }
 //     return tempArray;
 // }
-
 function letterGuessed() {
     alert("You already guessed that letter, try again!")
 }
@@ -299,8 +307,8 @@ function userWon() {
     if (checkForGameFinish()) {
         gameFinished();
     } else {
-    anyKeyElem.textContent = "Congratulations on getting the show right! Press \"Enter\" to get your next word."
-    anyKeyElem.style.display = "block";
+        anyKeyElem.textContent = "Congratulations on getting the show right! Press \"Enter\" to get your next word."
+        anyKeyElem.style.display = "block";
     }
 }
 
@@ -314,8 +322,8 @@ function userLoss() {
     if (checkForGameFinish()) {
         gameFinished();
     } else {
-    anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next show."
-    anyKeyElem.style.display = "block";
+        anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next show."
+        anyKeyElem.style.display = "block";
     }
 }
 
@@ -329,7 +337,6 @@ function newShow() {
     letterGuesses = [];
     incorrectGuessCount = 0;
     wordArray = [];
-
     for (var i = 0; i < showName.length; i++) {
         if (showName.charAt(i) === " ") {
             wordArray.push("&nbsp;");
@@ -350,13 +357,13 @@ function newShow() {
     audioElem.pause();
     audioElem.removeAttribute("src");
     audioElem.style.display = "none";
+  //  buttons.style.display = "none";
     playIndex++;
 }
 
 document.onkeyup = function (event) {
     var lower = event.key.toLowerCase();
     var upper = event.key.toUpperCase();
-
     if (checkForLoss() || checkForWin()) {} else {
         if (availableChars.includes(lower)) {
             if (lowerCaseWordArray.includes(lower)) {
@@ -365,26 +372,61 @@ document.onkeyup = function (event) {
                 letterGuessed();
             } else {
                 correctLetter = false;
-
                 // iterating through all characters in show name to see where matches, if any, exist
                 for (var n = 0; n <= showName.length; n++) {
-
                     // new sucessful match to character in normalized word
                     if (showName.toLowerCase().charAt(n) === lower) {
                         wordArray[n] = showName.charAt(n);
                         correctLetter = true;
                     }
                 }
-
                 if (!correctLetter) {
                     incorrectGuessCount++;
                     numGuessesElem.textContent = maxGuesses - incorrectGuessCount;
                 } else {
                     curWordElem.innerHTML = wordArray.join(" ");
                 }
-
                 letterGuesses.push(lower);
                 letterGuessedElem.textContent = letterGuesses.join(", ");
+            }
+            if (incorrectGuessCount === 8) {
+                hint.style.display = "block";
+            }
+            if (checkForWin()) {
+                userWon();
+            } else if (checkForLoss()) {
+                userLoss();
+            }
+        }
+    }
+}
+buttons.ontouchend = function (event) {
+    var lower = event.getAttribute("data-char").toLowerCase();
+    if (checkForLoss() || checkForWin()) {} else {
+        if (availableChars.includes(lower)) {
+            if (lowerCaseWordArray.includes(lower)) {
+                letterGuessed();
+            } else if (letterGuesses.includes(lower)) {
+                letterGuessed();
+            } else {
+                correctLetter = false;
+                // iterating through all characters in show name to see where matches, if any, exist
+                for (var n = 0; n <= showName.length; n++) {
+                    // new sucessful match to character in normalized word
+                    if (showName.toLowerCase().charAt(n) === lower) {
+                        wordArray[n] = showName.charAt(n);
+                        correctLetter = true;
+                    }
+                }
+                if (!correctLetter) {
+                    incorrectGuessCount++;
+                    numGuessesElem.textContent = maxGuesses - incorrectGuessCount;
+                } else {
+                    curWordElem.innerHTML = wordArray.join(" ");
+                }
+                letterGuesses.push(lower);
+                letterGuessedElem.textContent = letterGuesses.join(", ");
+               // event.style.backgroundColor = "darkgray";
             }
             if (incorrectGuessCount === 8) {
                 hint.style.display = "block";
