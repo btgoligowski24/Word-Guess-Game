@@ -16,6 +16,11 @@ audio {
     display: none;
     font-size: .8em;
 }
+
 .letterSpacing {
     letter-spacing: .1em;
+}
+
+input {
+    display: none;
 }
