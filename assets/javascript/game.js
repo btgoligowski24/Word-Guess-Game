@@ -183,9 +183,9 @@ var shows = [{
     themeSong: "assets/audio/rickAndMorty.mp3",
     showImg: "assets/images/rickAndMorty.jfif",
 }, {
-    name: "The 100",
-    themeSong: "assets/audio/the100.mp3",
-    showImg: "assets/images/the100.jpg",
+    name: "Counterpart",
+    themeSong: "assets/audio/counterpart.mp3",
+    showImg: "assets/images/counterpart.jpg",
 }, {
     name: "Humans",
     themeSong: "assets/audio/humans.mp3",
