@@ -25,7 +25,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    
+
 </head>
 
 <body>
@@ -43,10 +43,12 @@
         <div class="row">
             <div class="col-10 offset-1 col-md-4 offset-md-2 border border-secondary mr-md-0 p-3">
                 <img id="showImg" class="img-fluid rounded" src="assets/images/scifishows.jpg">
-                <audio id="showAudio" autoplay controls loop></audio>
+                <audio id="showAudio" class="mx-auto mt-3 mb-0" autoplay controls loop></audio>
             </div>
             <div class="col-10 offset-1 col-md-4 border border-secondary ml-md-0 p-3">
-                <h4 id="anyKey" class="mb-3 letterSpacing">Press "Enter" to get started!</h4>
+                <h6 id="instructions" class="letterSpacing mb-3">Click the "Start" button below to get going. Use <span
+                        id="screenCheck"></span> to make your guesses.</h6>
+                <button id="startButton" class="btn btn-lg letterSpacing mb-3 border mx-auto">START</button>
                 <p id="hint" class="letterSpacing">Remember, some shows have special characters in their names!</p>
                 <div>
                     <p class="font-weight-bold letterSpacing">Wins:</p>
@@ -67,8 +69,9 @@
             </div>
         </div>
     </div>
-    <input id="input" autofocus>
-    <div id="mobileButtons" class="m-3 text-center text-break"></div>
+    <div class="container">
+        <div id="mobileButtons" class="m-3 text-center text-break"></div>
+    </div>
     <script src="assets/javascript/game.js"></script>
 </body>
 
