@@ -252,7 +252,7 @@ window.addEventListener("keyup", function (event) {
         event.preventDefault();
         newShow();
         anyKeyElem.style.display = "none";
-        document.getElementsByTagName("input").style.display = "none";
+        document.getElementById("input").style.display = "none";
     }
 })
 // function to remove duplicate array indices; in this case, i'm using it to filter unique characters, but if it were show titles, it would find unique show titles. Not in use as it was easier to just create the string myself to test against.
@@ -308,7 +308,7 @@ function userWon() {
     if (checkForGameFinish()) {
         gameFinished();
     } else {
-        document.getElementsByTagName("input").style.display = "block";
+        document.getElementById("input").style.display = "block";
         anyKeyElem.textContent = "Congratulations on getting the show right! Press \"Enter\" to get your next word."
         anyKeyElem.style.display = "block";
     }
@@ -324,7 +324,7 @@ function userLoss() {
     if (checkForGameFinish()) {
         gameFinished();
     } else {
-        document.getElementsByTagName("input").style.display = "block";
+        document.getElementById("input").style.display = "block";
         anyKeyElem.textContent = "Sorry, you didn't get it right. Press \"Enter\" to get your next show."
         anyKeyElem.style.display = "block";
     }
