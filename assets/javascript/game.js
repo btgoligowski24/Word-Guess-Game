@@ -25,8 +25,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
         themeSong: "assets/audio/futurama.mp3",
         showImg: "assets/images/futurama.jpg",
     }, {
-        name: "Bablyon 5",
-        themeSong: "assets/audio/bablyon5.mp3",
+        name: "Babylon 5",
+        themeSong: "assets/audio/babylon5.mp3",
         showImg: "assets/images/babylon5.jpg",
     }, {
         name: "The Expanse",
@@ -295,8 +295,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 
     function gameFinished() {
+        startButtonElem.textContent = "Start Over";
+        startButtonElem.style.display = "block";
         instructionsElem.style.display = "block";
-        instructionsElem.textContent = "GAME OVER! Click \"Start Button\" to play again";
+        instructionsElem.textContent = "GAME OVER! Click \"Start Over\" button to play again";
         winsElem.textContent = "You got " + wins + " out of " + shows.length;
     }
 
