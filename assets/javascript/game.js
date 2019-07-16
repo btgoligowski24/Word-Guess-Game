@@ -283,7 +283,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     //     return tempArray;
     // }
     function letterGuessed() {
-        alert("You already guessed that letter, try again!")
+        alert("You idiot, you already guessed that letter! Go ahead, try to play it off as a mistake. Try again!");
     }
 
     function updateScore() {
@@ -412,7 +412,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
                     }
                     letterGuesses.push(lower);
                     letterGuessedElem.textContent = letterGuesses.join(", ");
-                    // event.style.backgroundColor = "darkgray";
                 }
                 if (incorrectGuessCount === 8) {
                     hint.style.display = "block";
