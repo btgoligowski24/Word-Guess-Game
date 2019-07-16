@@ -247,7 +247,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     for (var i = 0; i < availableChars.length; i++) {
         var addButton = document.createElement("button");
         addButton.setAttribute("data-char", availableChars[i]);
-        addButton.setAttribute("class", "m-1 button rounded btn-sm");
+        addButton.setAttribute("class", "m-1 button rounded btn");
         addButton.textContent = addButton.getAttribute("data-char");
         buttonArea.appendChild(addButton);
     }
